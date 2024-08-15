@@ -52,13 +52,8 @@ This gem aims to help generating [Slack](https://slack.com/) message payloads us
 
 ## Installation
 
-> [!WARNING]
-> Gem is going to be released on [RubyGems](https://rubygems.org/) soon.
-
-Until the first release, you can install it from the Github repository using the `main` branch.
-
 ```ruby
-gem 'slack_builder', git: 'https://github.com/cyb-/slack-builder.git', branch: 'main', require: false
+gem 'slack_builder', '~> 0.1.0', require: false
 ```
 
 
