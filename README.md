@@ -1,6 +1,6 @@
 # SlackBuilder
 
-![Version 0.1.0](https://img.shields.io/badge/Version-0.1.0-blue?logo=RubyGems&logoColor=%23E9573F)
+[![Gem Version](https://badge.fury.io/rb/slack_builder.svg)](https://badge.fury.io/rb/slack_builder)
 [![CircleCI](https://circleci.com/gh/cyb-/beta-app/tree/main.svg?style=shield&circle-token=a8ff610f989095686162e979db5babf49f34539b)](https://circleci.com/gh/cyb-/slack-builder/?branch=main)
 
 This gem aims to help generating [Slack](https://slack.com/) message payloads using [Block-kit API](https://api.slack.com/reference/block-kit/blocks) with kind of comfortable Ruby DSL focused on readability ¯\\_(ツ)_/¯
