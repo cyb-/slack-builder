@@ -1,0 +1,253 @@
+version: 2.1
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - ruby-300:
+          context: [ default ]
+      - ruby-301:
+          context: [ default ]
+      - ruby-306:
+          context: [ default ]
+      - ruby-310:
+          context: [ default ]
+      - ruby-316:
+          context: [ default ]
+      - ruby-322:
+          context: [ default ]
+      - ruby-323:
+          context: [ default ]
+      - ruby-330:
+          context: [ default ]
+      - lint:
+          context: [ default ]
+      - valid:
+          context: [ default ]
+          requires:
+            - lint
+            - ruby-300
+            - ruby-301
+            - ruby-306
+            - ruby-310
+            - ruby-316
+            - ruby-322
+            - ruby-323
+            - ruby-330
+
+jobs:
+  ruby-300:
+    docker:
+      - image: cimg/ruby:3.0.0
+    working_directory: tmp/build/3.0.0
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:lint"
+            bundle config set with "test"
+            bundle install
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec
+  ruby-301:
+    docker:
+      - image: cimg/ruby:3.0.1
+    working_directory: tmp/build/3.0.1
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:lint"
+            bundle config set with "test"
+            bundle install
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec
+  ruby-306:
+    docker:
+      - image: cimg/ruby:3.0.6
+    working_directory: tmp/build/3.0.6
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:lint"
+            bundle config set with "test"
+            bundle install
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec
+  ruby-310:
+    docker:
+      - image: cimg/ruby:3.1.0
+    working_directory: tmp/build/3.1.0
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:lint"
+            bundle config set with "test"
+            bundle install
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec
+  ruby-316:
+    docker:
+      - image: cimg/ruby:3.1.6
+    working_directory: tmp/build/3.1.6
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:lint"
+            bundle config set with "test"
+            bundle install
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec
+  ruby-322:
+    docker:
+      - image: cimg/ruby:3.2.2
+    working_directory: tmp/build/3.2.2
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:lint"
+            bundle config set with "test"
+            bundle install
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec
+  ruby-323:
+    docker:
+      - image: cimg/ruby:3.2.3
+    working_directory: tmp/build/3.2.3
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:lint"
+            bundle config set with "test"
+            bundle install
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec
+  ruby-330:
+    docker:
+      - image: cimg/ruby:3.3.0
+    working_directory: tmp/build/3.3.0
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:lint"
+            bundle config set with "test"
+            bundle install
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec
+  lint:
+    docker:
+      - image: cimg/ruby:3.0.0
+    working_directory: tmp/build/3.0.0
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: |
+            gem update --system --no-document && \
+              gem install bundler --no-document
+      - run:
+          name: Install dependencies
+          command: |
+            bundle config set frozen "true"
+            bundle config set path "vendor/bundle"
+            bundle config set without "default:development:test"
+            bundle config set with "lint"
+            bundle install
+      - run:
+          name: Rubocop
+          command: |
+            bundle exec rubocop
+  valid:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Succeed
+          command: |
+            echo "👌" && true
