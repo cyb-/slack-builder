@@ -81,6 +81,18 @@ SlackBuilder.message do
       image 'https://media.giphy.com/media/cYNjbM2MvPzM8raKvh/giphy.gif', alt_text: 'Bar'
     end
   end
+  section do
+    text do
+      plain_text 'Hello world :wave:'
+    end
+    mrkdwn '*Priority*'
+    mrkdwn '*Critical*'
+    plain_text 'High :collision:'
+    plain_text '¯\\_(ツ)_/¯', emoji: false
+    accessory do
+      image 'https://media.giphy.com/media/AcfTF7tyikWyroP0x7/giphy.gif', alt_text: 'Baz'
+    end
+  end
   video 'https://www.youtube.com/watch?v=PdaAHMztNVE', thumbnail_url: 'https://media.giphy.com/media/cYNjbM2MvPzM8raKvh/giphy.gif', alt_text: 'Foo', title: 'Bar :collision:'
   divider
   rich_text do
