@@ -39,7 +39,7 @@ RSpec.describe SlackBuilder::Elements::Section do
 
     it { is_expected.to eq(expected_attributes) }
 
-    context 'with a text' do
+    context 'with a text provided as argument' do
       let(:element) { described_class.new('Hello world', verbatim: true, &blocks) }
 
       let(:expected_attributes) do
@@ -49,6 +49,34 @@ RSpec.describe SlackBuilder::Elements::Section do
             type: 'mrkdwn',
             text: 'Hello world',
             verbatim: true,
+          },
+          fields: expected_blocks,
+        }
+      end
+
+      it { is_expected.to eq(expected_attributes) }
+    end
+
+    context 'with a text defined as block' do
+      let(:blocks) do
+        proc do
+          text do
+            mrkdwn 'Foo', verbatim: true
+            plain_text 'Bar', emoji: false
+          end
+
+          plain_text 'Hello'
+          mrkdwn 'World'
+        end
+      end
+
+      let(:expected_attributes) do
+        {
+          type: 'section',
+          text: {
+            type: 'plain_text',
+            text: 'Bar',
+            emoji: false,
           },
           fields: expected_blocks,
         }

@@ -33,6 +33,24 @@ module SlackBuilder
         end
       end
 
+      class Text
+        private_class_method :new
+
+        def self.build(&blk)
+          new.instance_exec(&blk)
+        end
+
+        private
+
+        def mrkdwn(...)
+          TextElements::Markdown.new(...)
+        end
+
+        def plain_text(...)
+          TextElements::PlainText.new(...)
+        end
+      end
+
       def initialize(text = nil, verbatim: false, **kwargs, &blk)
         @text = TextElements::Markdown.new(text, verbatim: verbatim) unless text.nil?
         super(**kwargs, &blk)
@@ -48,6 +66,10 @@ module SlackBuilder
 
       def accessory(...)
         @accessory = Accessory.build(...) if block_given?
+      end
+
+      def text(...)
+        @text = Text.build(...) if block_given?
       end
 
       def mrkdwn(...)
